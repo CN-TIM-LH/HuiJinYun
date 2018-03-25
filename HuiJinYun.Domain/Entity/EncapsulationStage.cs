@@ -379,7 +379,7 @@ namespace HuiJinYun.Domain.Entity
             //  旋转(缠绕六工位)
             _crswitch.Clamp(0, false);
             */
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
 
             //(周转台) 输出放盘命令
             _crswitch.Clamp(2, true);
