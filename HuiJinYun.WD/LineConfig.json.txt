@@ -1,0 +1,39 @@
+﻿{
+  AGVConfig: {
+  agv01:{type: "UWant", port: "192.168.10.44:8000",options:{no: "04"}},
+ },
+  DeviceConfig:{
+    bjswitch:{type: "Switch", port: "Tcp://192.168.10.22:8002"},
+	crswitch:{type: "Switch", port: "Tcp://192.168.10.23:8003"},
+	longmen: {type: "Longmen",port: "PCI-1756,BID#0"},
+    chanrao:{type: "Enlace",port: "Tcp://192.168.10.24:8004"},
+	liuhuadaoMain:{type: "Vulcanize",port: "Tcp://192.168.10.25:8005"},
+	liuhuadaoVice:{type: "VulcanizeVice",port: "Tcp://192.168.10.26:8006"},
+	bjj1:{type: "Wrap", port: "Tcp://192.168.10.30:8010"},
+	bjj2:{type: "Wrap", port: "Tcp://192.168.10.31:8011"}, 
+	bjj3:{type: "Wrap", port: "Tcp://192.168.10.32:8012"}, 
+	bjj4:{type: "Wrap", port: "Tcp://192.168.10.33:8013"}, 
+	bjj5:{type: "Wrap", port: "Tcp://192.168.10.34:8014"}, 
+	bjj6:{type: "Wrap", port: "Tcp://192.168.10.35:8015"},
+	bjj7:{type: "Wrap", port: "Tcp://192.168.10.36:8016"},
+	bjj8:{type: "Wrap", port: "Tcp://192.168.10.37:8017"}, 
+	bjj9:{type: "Wrap", port: "Tcp://192.168.10.38:8018"}, 
+	bjj10:{type: "Wrap", port: "Tcp://192.168.10.39:8019"},
+    bjj11:{type: "Wrap", port: "Tcp://192.168.10.40:8020"}, 
+	bjj12:{type: "Wrap", port: "Tcp://192.168.10.41:8021"},
+  },
+  StageConfig: {
+    Peptization: {
+      Device:["crswitch"]
+    },
+    Encapsulation: {
+      Device:["bjswitch","crswitch","chanrao", "longmen","bjj1","bjj2","bjj3","bjj4","bjj5","bjj6","bjj7","bjj8","bjj9","bjj10","bjj11","bjj12"]
+    },
+    Enlace: {
+      Device:["bjswitch","chanrao"]
+    },
+    Vulcanization: {
+      Device:["liuhuadaoMain","liuhuadaoVice"]
+    },
+  }
+}

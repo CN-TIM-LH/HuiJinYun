@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{33AD504F-2772-4229-AF1B-34F20D1A8682}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HuiJinYun.Domain</RootNamespace>
+    <AssemblyName>HuiJinYun.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Automation.BDaq4\4.0.0.0__463f5928d60183a0\Automation.BDaq4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\AGV\AgvCommandBase.cs" />
+    <Compile Include="Entity\AGV\AgvResultBase.cs" />
+    <Compile Include="Entity\AGV\CardXIPCommand.cs" />
+    <Compile Include="Entity\AGV\CardXIPResult.cs" />
+    <Compile Include="Entity\AGV\ErrorReportingResult.cs" />
+    <Compile Include="Entity\AGV\IAgvCommand.cs" />
+    <Compile Include="Entity\AGV\IAgvResult.cs" />
+    <Compile Include="Entity\AGV\MotionControlCommand.cs" />
+    <Compile Include="Entity\AGV\MotionControlResult.cs" />
+    <Compile Include="Entity\AGV\NodeNumberCommand.cs" />
+    <Compile Include="Entity\AGV\NodeNumberResult.cs" />
+    <Compile Include="Entity\AGV\OutputCommand.cs" />
+    <Compile Include="Entity\AGV\OutputResult.cs" />
+    <Compile Include="Entity\AGV\RouteSwitchCommand.cs" />
+    <Compile Include="Entity\AGV\RouteSwitchResult.cs" />
+    <Compile Include="Entity\AGV\StateCommand.cs" />
+    <Compile Include="Entity\AGV\StateResult.cs" />
+    <Compile Include="Entity\AGV\trafficControlCommand.cs" />
+    <Compile Include="Entity\AGV\trafficControlResult.cs" />
+    <Compile Include="Entity\Device\DeviceStateChangeEventArgs.cs" />
+    <Compile Include="Entity\Device\IAGV.cs" />
+    <Compile Include="Entity\Device\LongmenDevice.cs" />
+    <Compile Include="Entity\Device\TestDevice.cs" />
+    <Compile Include="Entity\Device\UWantAGV.cs" />
+    <Compile Include="Entity\Device\UwantAgvDevice.cs" />
+    <Compile Include="Entity\Device\UwantAgvDeviceBase.cs" />
+    <Compile Include="Entity\Device\EnlaceDevice.cs" />
+    <Compile Include="Entity\Device\VulcanizeViceDevice.cs" />
+    <Compile Include="Entity\Device\WrapDevice.cs" />
+    <Compile Include="Entity\Device\PlcDeviceBase.cs" />
+    <Compile Include="Entity\Device\IDevice.cs" />
+    <Compile Include="Entity\Device\SwitchDevice.cs" />
+    <Compile Include="Entity\Device\VulcanizeDevice.cs" />
+    <Compile Include="Entity\EncapsulationStage.cs" />
+    <Compile Include="Entity\EnlaceStage.cs" />
+    <Compile Include="Entity\HuiJinYunProductionLine.cs" />
+    <Compile Include="Entity\HuiJinYunProductionContext.cs" />
+    <Compile Include="Entity\IProductionContext.cs" />
+    <Compile Include="Entity\IProductionLine.cs" />
+    <Compile Include="Entity\IProductionStage.cs" />
+    <Compile Include="Entity\LM\LMcontrolt.cs" />
+    <Compile Include="Entity\PeptizationStage.cs" />
+    <Compile Include="Entity\PLC\eElementCode.cs" />
+    <Compile Include="Entity\PLC\ePlcResultCode.cs" />
+    <Compile Include="Entity\PLC\ePlcInstructions.cs" />
+    <Compile Include="Entity\PLC\IPlcResult.cs" />
+    <Compile Include="Entity\PLC\IPlcCommand.cs" />
+    <Compile Include="Entity\PLC\PasswordLockCommand.cs" />
+    <Compile Include="Entity\PLC\PlcResultBase.cs" />
+    <Compile Include="Entity\PLC\PlcCommandBase.cs" />
+    <Compile Include="Entity\PLC\ClearErrorCommand.cs" />
+    <Compile Include="Entity\PLC\ReadCommand.cs" />
+    <Compile Include="Entity\PLC\ReadTypeNameResult.cs" />
+    <Compile Include="Entity\PLC\RomteRunCommand.cs" />
+    <Compile Include="Entity\PLC\SelfTestCommand.cs" />
+    <Compile Include="Entity\PLC\RomteResetCommand.cs" />
+    <Compile Include="Entity\PLC\ReadTypeNameCommand.cs" />
+    <Compile Include="Entity\PLC\SelfTestResult.cs" />
+    <Compile Include="Entity\PLC\WriteRandomBitCommand.cs" />
+    <Compile Include="Entity\PLC\ReadRandomResult.cs" />
+    <Compile Include="Entity\PLC\PasswordUnlockCommand.cs" />
+    <Compile Include="Entity\PLC\WriteCommand.cs" />
+    <Compile Include="Entity\PLC\WriteRandomResult.cs" />
+    <Compile Include="Entity\PLC\WriteRandomCommand.cs" />
+    <Compile Include="Entity\PLC\ReadRandomCommand.cs" />
+    <Compile Include="Entity\SyncU3D.cs" />
+    <Compile Include="Entity\VulcanizationStage.cs" />
+    <Compile Include="Enum\eHuiJinYunAGVState.cs" />
+    <Compile Include="Enum\eHuiJinYunStagePosition.cs" />
+    <Compile Include="Enum\eSyncU3D.cs" />
+    <Compile Include="GCode\gCodeService.cs" />
+    <Compile Include="GCode\LTSMC.cs" />
+    <Compile Include="GCode\Operation\GCode_data RW.cs" />
+    <Compile Include="GCode\Operation\GCode_fileOperation.cs" />
+    <Compile Include="Infrastructure\Common\Bit.cs" />
+    <Compile Include="Infrastructure\Common\IProto.cs" />
+    <Compile Include="Infrastructure\Common\ISerialize.cs" />
+    <Compile Include="Infrastructure\Common\Proto.cs" />
+    <Compile Include="Infrastructure\Common\ProtoClass.cs" />
+    <Compile Include="Infrastructure\Common\ProtoAttribute.cs" />
+    <Compile Include="Infrastructure\Port\IPort.cs" />
+    <Compile Include="Infrastructure\Port\PortBase.cs" />
+    <Compile Include="Infrastructure\Port\PortFactory.cs" />
+    <Compile Include="Infrastructure\Port\TcpPort.cs" />
+    <Compile Include="Infrastructure\Watcher\INotifier.cs" />
+    <Compile Include="Infrastructure\Watcher\NotifyArgs.cs" />
+    <Compile Include="Infrastructure\Watcher\NotifyWatcher.cs" />
+    <Compile Include="Infrastructure\Log\Logger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

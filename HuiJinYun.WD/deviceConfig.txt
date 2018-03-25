@@ -1,0 +1,7 @@
+﻿baojiao,Switch,plc,192.168.10.22:8002
+jiejiao,Switch,plc,192.168.10.21:8001
+canjiao,Switch,plc,192.168.10.23:8003
+liuhuadao,Vulcanize,plc,192.168.10.25:8005
+2,Agv,agv,192.168.10.42:8022
+2,包胶,plc,192.168.10.22:8002
+3,缠胶,plc,192.168.10.23:8003
