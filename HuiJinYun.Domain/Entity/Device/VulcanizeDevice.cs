@@ -41,15 +41,15 @@ namespace HuiJinYun.Domain.Entity.Device
     public enum eVulcanizeOption
     {
         Null,
-        AGVInWaiting = 1 << 0,  //小车入口等待
-        AGVExitWaiting = 1 << 1, //小车出口等待
-        OutDiscReady = 1 << 2,  //出盘已准备
-        VulcanizationDoorUpReady = 1 << 3, //硫化门已升
-        Reset = 1 << 4, //删除键
-        ExitToAGV = 1 << 5, //出口到小车
-        VulcanizationDoorDownReady = 1 << 6,  //硫化门已降
-        CoolerReady = 1 << 7,  //硫化到冷却已完成
-        AlarmRelease = 1 << 8     //报警解除
+        AGVInWaiting = 1 << 0,  //小车入口等待    M80
+        AGVExitWaiting = 1 << 1, //小车出口等待   M81
+        OutDiscReady = 1 << 2,  //出盘已准备       M82
+        VulcanizationDoorUpReady = 1 << 3, //硫化门已升    M83
+        Reset = 1 << 4, //删除键      M84
+        ExitToAGV = 1 << 5, //出口到小车   M85  
+        VulcanizationDoorDownReady = 1 << 6,  //硫化门已降    M86
+        CoolerReady = 1 << 7,  //硫化到冷却已完成    M87
+        AlarmRelease = 1 << 8     //报警解除     M88
     }
 
     //主同步到副
