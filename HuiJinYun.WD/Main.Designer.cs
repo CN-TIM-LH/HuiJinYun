@@ -40,14 +40,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cmb_speed = new System.Windows.Forms.ComboBox();
-            this.rb_agv_06 = new System.Windows.Forms.RadioButton();
+            this.rb_agv_05 = new System.Windows.Forms.RadioButton();
             this.bt_Output_fan_close = new System.Windows.Forms.Button();
             this.bt_Output_zheng_close = new System.Windows.Forms.Button();
             this.bt_Output_fan_open = new System.Windows.Forms.Button();
             this.bt_Output_zheng_open = new System.Windows.Forms.Button();
             this.bt_FrontLine = new System.Windows.Forms.Button();
-            this.rb_agv_04 = new System.Windows.Forms.RadioButton();
-            this.rb_agv_03 = new System.Windows.Forms.RadioButton();
+            this.rb_agv_02 = new System.Windows.Forms.RadioButton();
+            this.rb_agv_01 = new System.Windows.Forms.RadioButton();
             this.bt_Vulcanization_in = new System.Windows.Forms.Button();
             this.bt_Vulcanization_out = new System.Windows.Forms.Button();
             this.bt_Enlace = new System.Windows.Forms.Button();
@@ -82,11 +82,11 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.DarkOrange;
             this.label1.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(237, 9);
+            this.label1.Location = new System.Drawing.Point(220, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(452, 48);
+            this.label1.Size = new System.Drawing.Size(548, 48);
             this.label1.TabIndex = 1;
-            this.label1.Text = "睿拓自动硫化生产线";
+            this.label1.Text = "东风美晨自动硫化生产线";
             // 
             // rb_Manual
             // 
@@ -163,14 +163,14 @@
             this.groupBox6.Controls.Add(this.label7);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.cmb_speed);
-            this.groupBox6.Controls.Add(this.rb_agv_06);
+            this.groupBox6.Controls.Add(this.rb_agv_05);
             this.groupBox6.Controls.Add(this.bt_Output_fan_close);
             this.groupBox6.Controls.Add(this.bt_Output_zheng_close);
             this.groupBox6.Controls.Add(this.bt_Output_fan_open);
             this.groupBox6.Controls.Add(this.bt_Output_zheng_open);
             this.groupBox6.Controls.Add(this.bt_FrontLine);
-            this.groupBox6.Controls.Add(this.rb_agv_04);
-            this.groupBox6.Controls.Add(this.rb_agv_03);
+            this.groupBox6.Controls.Add(this.rb_agv_02);
+            this.groupBox6.Controls.Add(this.rb_agv_01);
             this.groupBox6.Location = new System.Drawing.Point(210, 20);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(237, 288);
@@ -214,15 +214,15 @@
             this.cmb_speed.Size = new System.Drawing.Size(121, 20);
             this.cmb_speed.TabIndex = 1;
             // 
-            // rb_agv_06
+            // rb_agv_05
             // 
-            this.rb_agv_06.AutoSize = true;
-            this.rb_agv_06.Location = new System.Drawing.Point(179, 21);
-            this.rb_agv_06.Name = "rb_agv_06";
-            this.rb_agv_06.Size = new System.Drawing.Size(35, 16);
-            this.rb_agv_06.TabIndex = 0;
-            this.rb_agv_06.Text = "06";
-            this.rb_agv_06.UseVisualStyleBackColor = true;
+            this.rb_agv_05.AutoSize = true;
+            this.rb_agv_05.Location = new System.Drawing.Point(179, 21);
+            this.rb_agv_05.Name = "rb_agv_05";
+            this.rb_agv_05.Size = new System.Drawing.Size(35, 16);
+            this.rb_agv_05.TabIndex = 0;
+            this.rb_agv_05.Text = "05";
+            this.rb_agv_05.UseVisualStyleBackColor = true;
             // 
             // bt_Output_fan_close
             // 
@@ -284,27 +284,27 @@
             this.bt_FrontLine.UseVisualStyleBackColor = false;
             this.bt_FrontLine.Click += new System.EventHandler(this.bt_FrontLine_Click);
             // 
-            // rb_agv_04
+            // rb_agv_02
             // 
-            this.rb_agv_04.AutoSize = true;
-            this.rb_agv_04.Location = new System.Drawing.Point(132, 20);
-            this.rb_agv_04.Name = "rb_agv_04";
-            this.rb_agv_04.Size = new System.Drawing.Size(35, 16);
-            this.rb_agv_04.TabIndex = 0;
-            this.rb_agv_04.Text = "04";
-            this.rb_agv_04.UseVisualStyleBackColor = true;
+            this.rb_agv_02.AutoSize = true;
+            this.rb_agv_02.Location = new System.Drawing.Point(132, 20);
+            this.rb_agv_02.Name = "rb_agv_02";
+            this.rb_agv_02.Size = new System.Drawing.Size(35, 16);
+            this.rb_agv_02.TabIndex = 0;
+            this.rb_agv_02.Text = "02";
+            this.rb_agv_02.UseVisualStyleBackColor = true;
             // 
-            // rb_agv_03
+            // rb_agv_01
             // 
-            this.rb_agv_03.AutoSize = true;
-            this.rb_agv_03.Checked = true;
-            this.rb_agv_03.Location = new System.Drawing.Point(79, 20);
-            this.rb_agv_03.Name = "rb_agv_03";
-            this.rb_agv_03.Size = new System.Drawing.Size(35, 16);
-            this.rb_agv_03.TabIndex = 0;
-            this.rb_agv_03.TabStop = true;
-            this.rb_agv_03.Text = "03";
-            this.rb_agv_03.UseVisualStyleBackColor = true;
+            this.rb_agv_01.AutoSize = true;
+            this.rb_agv_01.Checked = true;
+            this.rb_agv_01.Location = new System.Drawing.Point(79, 20);
+            this.rb_agv_01.Name = "rb_agv_01";
+            this.rb_agv_01.Size = new System.Drawing.Size(35, 16);
+            this.rb_agv_01.TabIndex = 0;
+            this.rb_agv_01.TabStop = true;
+            this.rb_agv_01.Text = "01";
+            this.rb_agv_01.UseVisualStyleBackColor = true;
             // 
             // bt_Vulcanization_in
             // 
@@ -452,9 +452,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.RadioButton rb_agv_06;
-        private System.Windows.Forms.RadioButton rb_agv_04;
-        private System.Windows.Forms.RadioButton rb_agv_03;
+        private System.Windows.Forms.RadioButton rb_agv_05;
+        private System.Windows.Forms.RadioButton rb_agv_02;
+        private System.Windows.Forms.RadioButton rb_agv_01;
         private System.Windows.Forms.Button bt_FrontLine;
         private System.Windows.Forms.Button bt_Output_fan_close;
         private System.Windows.Forms.Button bt_Output_zheng_close;

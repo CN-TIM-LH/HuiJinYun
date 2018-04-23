@@ -936,25 +936,25 @@ namespace HuiJinYun.WD
         {
             try
             {
-                if (this.rb_agv_03.Checked)
+                if (this.rb_agv_01.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.43:8000"), _serialize);
-                    byte carnumber = byte.Parse("3");
+                    byte carnumber = byte.Parse("1");
                     _device.FrontPatrol(carnumber, this.cmb_speed.SelectedItem.ToString());
                 }
-                if (this.rb_agv_04.Checked)
+                if (this.rb_agv_02.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.44:8000"), _serialize);
-                    byte carnumber = byte.Parse("4");
+                    byte carnumber = byte.Parse("2");
                     _device.FrontPatrol(carnumber, this.cmb_speed.SelectedItem.ToString());
                 }
-                if (this.rb_agv_06.Checked)
+                if (this.rb_agv_05.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.46:8000"), _serialize);
-                    byte carnumber = byte.Parse("6");
+                    byte carnumber = byte.Parse("5");
                     _device.FrontPatrol(carnumber, this.cmb_speed.SelectedItem.ToString());
                 }
             }
@@ -968,25 +968,25 @@ namespace HuiJinYun.WD
         {
             try
             {
-                if (this.rb_agv_03.Checked)
+                if (this.rb_agv_01.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.43:8000"), _serialize);
-                    byte carnumber = byte.Parse("3");
+                    byte carnumber = byte.Parse("1");
                     _device.SetOutput_Open(carnumber);
                 }
-                if (this.rb_agv_04.Checked)
+                if (this.rb_agv_02.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.44:8000"), _serialize);
-                    byte carnumber = byte.Parse("4");
+                    byte carnumber = byte.Parse("2");
                     _device.SetOutput_Open(carnumber);
                 }
-                if (this.rb_agv_06.Checked)
+                if (this.rb_agv_05.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.46:8000"), _serialize);
-                    byte carnumber = byte.Parse("6");
+                    byte carnumber = byte.Parse("5");
                     _device.SetOutput_Open(carnumber);
                 }
             }
@@ -998,25 +998,25 @@ namespace HuiJinYun.WD
         private void bt_Output_zheng_close_Click(object sender, EventArgs e)
         {try
             {
-                if (this.rb_agv_03.Checked)
+                if (this.rb_agv_01.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.43:8000"), _serialize);
-                    byte carnumber = byte.Parse("3");
+                    byte carnumber = byte.Parse("1");
                     _device.SetOutput_close(carnumber);
                 }
-                if (this.rb_agv_04.Checked)
+                if (this.rb_agv_02.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.44:8000"), _serialize);
-                    byte carnumber = byte.Parse("4");
+                    byte carnumber = byte.Parse("2");
                     _device.SetOutput_close(carnumber);
                 }
-                if (this.rb_agv_06.Checked)
+                if (this.rb_agv_05.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.46:8000"), _serialize);
-                    byte carnumber = byte.Parse("6");
+                    byte carnumber = byte.Parse("5");
                     _device.SetOutput_close(carnumber);
                 }
             }
@@ -1030,25 +1030,25 @@ namespace HuiJinYun.WD
         {
             try
             {
-                if (this.rb_agv_03.Checked)
+                if (this.rb_agv_01.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.43:8000"), _serialize);
-                    byte carnumber = byte.Parse("3");
+                    byte carnumber = byte.Parse("1");
                     _device.SetOutput_fan_Open(carnumber);
                 }
-                if (this.rb_agv_04.Checked)
+                if (this.rb_agv_02.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.44:8000"), _serialize);
-                    byte carnumber = byte.Parse("4");
+                    byte carnumber = byte.Parse("2");
                     _device.SetOutput_fan_Open(carnumber);
                 }
-                if (this.rb_agv_06.Checked)
+                if (this.rb_agv_05.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.46:8000"), _serialize);
-                    byte carnumber = byte.Parse("6");
+                    byte carnumber = byte.Parse("5");
                     _device.SetOutput_fan_Open(carnumber);
                 }
             }
@@ -1060,25 +1060,25 @@ namespace HuiJinYun.WD
         private void bt_Output_fan_close_Click(object sender, EventArgs e)
         {
             try {
-                if (this.rb_agv_03.Checked)
+                if (this.rb_agv_01.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.43:8000"), _serialize);
-                    byte carnumber = byte.Parse("3");
+                    byte carnumber = byte.Parse("1");
                     _device.SetOutput_fan_close(carnumber);
                 }
-                if (this.rb_agv_04.Checked)
+                if (this.rb_agv_02.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.44:8000"), _serialize);
-                    byte carnumber = byte.Parse("4");
+                    byte carnumber = byte.Parse("2");
                     _device.SetOutput_fan_close(carnumber);
                 }
-                if (this.rb_agv_06.Checked)
+                if (this.rb_agv_05.Checked)
                 {
                     _serialize = new ProtoClass();
                     UwantAgvDevice _device = new UwantAgvDevice(new TcpPort("192.168.10.46:8000"), _serialize);
-                    byte carnumber = byte.Parse("6");
+                    byte carnumber = byte.Parse("5");
                     _device.SetOutput_fan_close(carnumber);
                 }
             } catch (Exception ex)

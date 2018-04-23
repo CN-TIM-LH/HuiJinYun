@@ -136,6 +136,9 @@
     <EmbeddedResource Include="U3DPlayer.resx">
       <DependentUpon>U3DPlayer.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Document\IPConfig.xlsx" />
+    <None Include="Document\PLCConfig.xlsx" />
+    <None Include="Document\WorkRecord.docx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GCode_Test.datasource" />
     <None Include="Properties\Settings.settings">
@@ -167,6 +170,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
