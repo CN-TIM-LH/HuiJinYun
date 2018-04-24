@@ -17,7 +17,7 @@ namespace HuiJinYun.Domain.Entity.Device
         protected IPort _port;
         protected ISerialize _serialize;
         protected byte _AGVNo;
-        protected TPosition  _position;
+        protected volatile dynamic _position; //TPosition
         protected TState _state;
         public static event SyncAGVHandler OnSync;
 
