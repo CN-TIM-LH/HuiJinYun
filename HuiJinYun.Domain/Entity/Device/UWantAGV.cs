@@ -17,7 +17,7 @@ namespace HuiJinYun.Domain.Entity.Device
         protected IPort _port;
         protected ISerialize _serialize;
         protected byte _AGVNo;
-        protected TPosition _position;
+        protected TPosition  _position;
         protected TState _state;
         public static event SyncAGVHandler OnSync;
 
@@ -27,7 +27,7 @@ namespace HuiJinYun.Domain.Entity.Device
         protected int _wOffset = 0;
         protected int _length = 0;
 
-        public TPosition Position
+        public  TPosition Position
         {
             get
             {
@@ -158,6 +158,15 @@ namespace HuiJinYun.Domain.Entity.Device
                     startOffset = -1;
                     endOffset = -1;
 
+                    try
+                    {
+                        var code = BitConverter.ToString(d).Replace('-', ' ');
+                        Logger.LogInfo($"AGV{_AGVNo}:Update, code:{code}");
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.ErrorInfo($"AGV{_AGVNo}:Update, code:{BitConverter.ToString(d)}", ex);
+                    }
                     //TODO:d
                     try
                     {
@@ -179,6 +188,7 @@ namespace HuiJinYun.Domain.Entity.Device
             }
         }
 
+        /*
         protected async void Update()
         {
             while (true)
@@ -315,59 +325,57 @@ namespace HuiJinYun.Domain.Entity.Device
                 }
             }
         }
+        */
 
         public IAGV<TState, TPosition> Goto(TPosition position, int mode = 0)
         {
             byte[] result = null;
+
+            lock (_port)
+            {
+                switch ((int)(eNodeNumber)System.Enum.ToObject(typeof(eNodeNumber), position))
+                {
+                    case 1:
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed4, eLogicalDirection.LogicalGo, 2)));
+                        Thread.Sleep(300);
+                        _port.Read(out result, 0, 20);
+                        break;
+                    case 2:
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
+                        Thread.Sleep(300);
+                        _port.Read(out result, 0, 20);
+                        break;
+                    case 3:
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
+                        Thread.Sleep(300);
+                        _port.Read(out result, 0, 20);
+                        break;
+                    case 4:
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed3, eLogicalDirection.LogicalGo, 2)));
+                        Thread.Sleep(300);
+                        _port.Read(out result, 0, 20);
+                        break;
+                    case 5:
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
+                        Thread.Sleep(300);
+                        _port.Read(out result, 0, 20);
+                        break;
+                }
+            }
+#if DEBUG
             try
             {
-                lock (_port)
-                {
-                    switch ((int)(eNodeNumber)System.Enum.ToObject(typeof(eNodeNumber), position))
-                    {
-                        case 1:
-                            _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed4, eLogicalDirection.LogicalGo, 2)));
-                            Thread.Sleep(300);
-                            _port.Read(out result, 0, 20);
-                            break;
-                        case 2:
-                            _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
-                            Thread.Sleep(300);
-                            _port.Read(out result, 0, 20);
-                            break;
-                        case 3:
-                            _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
-                            Thread.Sleep(300);
-                            _port.Read(out result, 0, 20);
-                            break;
-                        case 4:
-                            _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed3, eLogicalDirection.LogicalGo, 2)));
-                            Thread.Sleep(300);
-                            _port.Read(out result, 0, 20);
-                            break;
-                        case 5:
-                            _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
-                            Thread.Sleep(300);
-                            _port.Read(out result, 0, 20);
-                            break;
-                    }
-                }
-#if DEBUG
-                try
-                {
-                    var pos = System.Enum.GetName(typeof(TPosition), position);
-                    var res = BitConverter.ToString(result).Replace('-', ' ');
-                    Logger.LogInfo($"AGV{_AGVNo}:goto {pos}@{mode}, res:{res}");
-                }
-                catch { }
+                var pos = System.Enum.GetName(typeof(TPosition), position);
+                var res = BitConverter.ToString(result).Replace('-', ' ');
+                Logger.LogInfo($"AGV{_AGVNo}:goto {pos}@{mode}, res:{res}");
+            }
+            catch
+            {
+            }
 #endif
 
-            }
-            catch (Exception ex)
-            {
-                Logger.ErrorInfo("Goto  cmd", ex);
 
-            }
+
             //_port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, (eSpeed)System.Enum.ToObject(typeof(eSpeed), mode), eLogicalDirection.LogicalGo, 2)));
             //Thread.Sleep(300);
             //_port.Read(out result, 0, 20);
@@ -455,7 +463,8 @@ namespace HuiJinYun.Domain.Entity.Device
                         break;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logger.ErrorInfo("Goto", ex);
 
             }
@@ -512,7 +521,7 @@ namespace HuiJinYun.Domain.Entity.Device
 
             try
             {
-                lock (_port)
+                lock(_port)
                 {
                     _port.Write(_serialize.Serialize(new trafficControlCommand(_AGVNo, (eNodeNumber)System.Enum.ToObject(typeof(eNodeNumber), position), eAction.Check, 0x21, 0x00)));
                     Thread.Sleep(300);

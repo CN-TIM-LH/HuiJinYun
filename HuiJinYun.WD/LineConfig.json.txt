@@ -1,6 +1,6 @@
 ﻿{
   AGVConfig: {
-  agv01:{type: "UWant", port: "192.168.10.46:8000",options:{no: "05"}},
+  agv01:{type: "UWant", port: "192.168.10.44:8000",options:{no: "02"}},
  },
   DeviceConfig:{
     bjswitch:{type: "Switch", port: "Tcp://192.168.10.22:8002"},

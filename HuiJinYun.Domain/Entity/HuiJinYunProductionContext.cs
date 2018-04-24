@@ -78,7 +78,7 @@ namespace HuiJinYun.Domain.Entity
                 Position = target | eHuiJinYunStagePosition.OnGoing;
                 CurrentAGV.Goto(target, (int)AGV.eSpeed.Speed4);
                 //new NotifyWatcher(CurrentAGV).WaitOne((s, a) => CurrentAGV.Position == target);
-                while (CurrentAGV.Position != target) Thread.Sleep(1000);
+                while (CurrentAGV.Position != target) { Logger.LogInfo($"AGV-Position:{CurrentAGV.Position},AGV-Position:{target}"); Thread.Sleep(1000); }
                 Position = target;
                 return true;
             });
@@ -122,7 +122,7 @@ namespace HuiJinYun.Domain.Entity
                 {
                     CurrentAGV.Goto(target, (int)AGV.eSpeed.Speed4);
                     // new NotifyWatcher(CurrentAGV).WaitOne((s, a) => CurrentAGV.Position == target);
-                    while (CurrentAGV.Position != target) Thread.Sleep(1000);
+                    while (CurrentAGV.Position != target) { Logger.LogInfo($"AGV-Position:{CurrentAGV.Position},AGV-Position:{target}"); Thread.Sleep(1000); }
                     Position = target;
                     return true;
                 });

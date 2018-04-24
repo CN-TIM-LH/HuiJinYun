@@ -288,7 +288,8 @@ namespace HuiJinYun.WD
                         // Encapsulation And Enlace Begin
 
                         //龙门工序
-                        await context.Work();
+                        //20180424
+                        //await context.Work();
 
                         _pieceNumber = _pieceNumber * 6;
                         _u3d.SendMessage("{ Type:js,Number:" + _pieceNumber + "}");
