@@ -34,7 +34,7 @@ namespace HuiJinYun.Domain.Entity
 
             if (null != _runningTask)
                 _runningTask.Wait();
-            new NotifyWatcher(context).WaitOne((s, a) => eHuiJinYunStagePosition.Enlace == context.Position, 1000);
+           // new NotifyWatcher(context).WaitOne((s, a) => eHuiJinYunStagePosition.Enlace == context.Position, 1000);
             _switch.Switch();
 
             _runningTask = Task.Run(() =>

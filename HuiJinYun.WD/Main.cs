@@ -300,7 +300,7 @@ namespace HuiJinYun.WD
                         #region  Enlace Stage By Pass
                         stageDone = false;
                         //add await
-                        await context.NextStage();
+                        //await context.NextStage();
                         //Enlace Stage 缠绕
                         //await context.Work();
                         #endregion

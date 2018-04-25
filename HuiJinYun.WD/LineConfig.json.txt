@@ -18,16 +18,12 @@
   },
   StageConfig: {
     Peptization: {
-      Device:["crswitch"]
     },
     Encapsulation: {
       Device:["bjswitch","crswitch","chanrao", "longmen","bjj1","bjj2","bjj3","bjj4","bjj5","bjj6"]
     },
-    Enlace: {
-      Device:["bjswitch","chanrao"]
-    },
     Vulcanization: {
       Device:["liuhuadaoMain","liuhuadaoVice"]
     },
-  }
+ }
 }

@@ -24,7 +24,7 @@ namespace HuiJinYun.Domain.Enum
         /// <summary>
         /// 缠绕
         /// </summary>
-        Enlace,
+        //Enlace,
         /// <summary>
         /// 硫化
         /// </summary>
