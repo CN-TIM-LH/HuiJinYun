@@ -17,7 +17,7 @@ namespace HuiJinYun.Domain.Entity.Device
         protected IPort _port;
         protected ISerialize _serialize;
         protected byte _AGVNo;
-        protected volatile dynamic _position; //TPosition
+        protected volatile dynamic _position = default(TPosition); //  volatile dynamic   TPosition
         protected TState _state;
         public static event SyncAGVHandler OnSync;
 
@@ -32,6 +32,8 @@ namespace HuiJinYun.Domain.Entity.Device
             get
             {
                 return _position;
+
+
             }
             protected set
             {
@@ -39,6 +41,10 @@ namespace HuiJinYun.Domain.Entity.Device
                 {
                     _position = value;
                     StateChanged(new DeviceStateChangeEventArgs(_position));
+                    if (value != _position)
+                    {
+                        Logger.LogInfo($"AGV  value {value}:changedState, code:{_position}");
+                    }
                 }
             }
         }
@@ -336,7 +342,7 @@ namespace HuiJinYun.Domain.Entity.Device
                 switch ((int)(eNodeNumber)System.Enum.ToObject(typeof(eNodeNumber), position))
                 {
                     case 1:
-                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed4, eLogicalDirection.LogicalGo, 2)));
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed2, eLogicalDirection.LogicalGo, 2)));
                         Thread.Sleep(300);
                         _port.Read(out result, 0, 20);
                         break;
@@ -351,7 +357,7 @@ namespace HuiJinYun.Domain.Entity.Device
                         _port.Read(out result, 0, 20);
                         break;
                     case 4:
-                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed3, eLogicalDirection.LogicalGo, 2)));
+                        _port.Write(_serialize.Serialize(new MotionControlCommand(_AGVNo, eMoveDirection.FrontPatrol, eSpeed.Speed1, eLogicalDirection.LogicalGo, 2)));
                         Thread.Sleep(300);
                         _port.Read(out result, 0, 20);
                         break;

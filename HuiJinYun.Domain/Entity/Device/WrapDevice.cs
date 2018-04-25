@@ -52,18 +52,12 @@ namespace HuiJinYun.Domain.Entity.Device
 
         public WrapDevice(IPort port, ISerialize serialize) : base(port, serialize)
         {
-            try
-            {
+            
                 _port.Write(_serialize.Serialize(new ReadRandomCommand(eElementCode.M, 2 * 16)))
                     .Read(out byte[] result);
                 var res = _serialize.Deserialize<ReadRandomResult>(result);
                 if (res.Code == ePlcResultCode.OK)
                     _option = (eWrapOption)res.WordData;
-            }
-            catch(Exception ex)
-            {
-                Logger.ErrorInfo("WrapDevice",ex);
-            }
             _isOnline = true;
 
             EStop(true); Thread.Sleep(1000);

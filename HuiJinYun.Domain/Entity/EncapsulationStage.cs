@@ -83,9 +83,9 @@ namespace HuiJinYun.Domain.Entity
             _crswitch.Clamp(1, false);
 
 
-            for (int i = 0; i < 6; i++)
+            //for (int i = 0; i < 6; i++)
             //for (int i = 0; i <= 3; i++)
-            //for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 1; i++)
             {
                 _enlace.Reset(true); Thread.Sleep(100);
                 _enlace.Reset(false);

@@ -85,8 +85,6 @@ namespace HuiJinYun.Domain.Entity.Device
         //protected Thread
         public VulcanizeDevice(IPort port, ISerialize serialize) : base(port, serialize)
         {
-            try
-            {
                 lock (_port)
                 {
                     _port.Write(_serialize.Serialize(new ReadRandomCommand(eElementCode.M, 5 * 16)))
@@ -95,10 +93,7 @@ namespace HuiJinYun.Domain.Entity.Device
                     if (res.Code == ePlcResultCode.OK)
                         _option = (eVulcanizeOption)res.WordData;
                 }
-            }
-            catch(Exception ex) {
-                Logger.ErrorInfo("VulcanizeDevice  读取状态", ex);
-            }
+          
             _isOnline = true;
 
             Reset(true); Thread.Sleep(1000);

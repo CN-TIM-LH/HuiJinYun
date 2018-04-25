@@ -76,18 +76,13 @@ namespace HuiJinYun.Domain.Entity.Device
         //protected Thread
         public VulcanizeViceDevice(IPort port, ISerialize serialize) : base(port, serialize)
         {
-            try
-            {
+            
                 _port.Write(_serialize.Serialize(new ReadRandomCommand(eElementCode.M, 3 * 16)))
                  .Read(out byte[] result);
                 var res = _serialize.Deserialize<ReadRandomResult>(result);
                 if (res.Code == ePlcResultCode.OK)
                     _option = (eVulcanizeViceOption)res.WordData;
-            }
-            catch (Exception ex)
-            {
-                Logger.ErrorInfo("VulcanizeViceDevice", ex);
-            }
+          
             _isOnline = true;
             IPCCMD(true);
             Update();

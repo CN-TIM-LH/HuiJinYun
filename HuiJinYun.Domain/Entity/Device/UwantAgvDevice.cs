@@ -206,8 +206,7 @@ namespace HuiJinYun.Domain.Entity.Device
         /// <returns></returns>
         public IDevice SetOutput_Open(byte car)
         {
-            try
-            {
+           
                 lock (_port)
                 {
                     byte[] result;
@@ -215,9 +214,7 @@ namespace HuiJinYun.Domain.Entity.Device
                     _port.Write(_serialize.Serialize<OutputCommand>(cmd))
                         .Read(out result);
                 }
-            }
-            catch {
-            }
+           
             return this;
         }
 
@@ -227,8 +224,7 @@ namespace HuiJinYun.Domain.Entity.Device
         /// <returns></returns>
         public IDevice SetOutput_fan_Open(byte car)
         {
-            try
-            {
+           
                 lock (_port)
                 {
                     byte[] result;
@@ -236,11 +232,6 @@ namespace HuiJinYun.Domain.Entity.Device
                     _port.Write(_serialize.Serialize<OutputCommand>(cmd))
                         .Read(out result);
                 }
-            }
-            catch
-            {
-
-            }
             return this;
         }
 
@@ -250,8 +241,7 @@ namespace HuiJinYun.Domain.Entity.Device
         /// <returns></returns>
         public IDevice SetOutput_close(byte car)
         {
-            try
-            {
+         
                 lock (_port)
                 {
                     byte[] result;
@@ -259,9 +249,6 @@ namespace HuiJinYun.Domain.Entity.Device
                     _port.Write(_serialize.Serialize<OutputCommand>(cmd))
                         .Read(out result);
                 }
-            }
-            catch
-            { }
             return this;
         }
 
@@ -271,8 +258,7 @@ namespace HuiJinYun.Domain.Entity.Device
         /// <returns></returns>
         public IDevice SetOutput_fan_close(byte car)
         {
-            try
-            {
+           
                 lock (_port)
                 {
                     byte[] result;
@@ -280,16 +266,13 @@ namespace HuiJinYun.Domain.Entity.Device
                     _port.Write(_serialize.Serialize<OutputCommand>(cmd))
                         .Read(out result);
                 }
-            }
-            catch { }
             return this;
         }
 
 
         public IDevice FrontPatrol(byte car,string Speed)
         {
-            try
-            {
+            
                 byte[] result = null;
 
                 lock (_port)
@@ -298,8 +281,7 @@ namespace HuiJinYun.Domain.Entity.Device
                     Thread.Sleep(300);
                     _port.Read(out result, 0, 20);
                 }
-            }
-            catch { }
+            
             return this;
         }
 
