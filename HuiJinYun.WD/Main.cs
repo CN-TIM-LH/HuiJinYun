@@ -519,9 +519,9 @@ namespace HuiJinYun.WD
                             //(周转台) 输出取盘命令  关闭
                             _crswitch.Clamp(1, false);
 
-                            //for (int i = 0; i < 6; i++)
+                            for (int i = 0; i < 6; i++)
                             //for (int i = 0; i <= 3; i++)
-                            for (int i = 0; i < 1; i++)
+                            //for (int i = 0; i < 1; i++)
                             {
                                 /*
                                 if (i == 0)
@@ -584,30 +584,30 @@ namespace HuiJinYun.WD
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.InitialReady)) Thread.Sleep(1000);
 
                                     //(龙门) 输出工位信号和工位等待信号（PC-O0）
-                                    _longmen.BeginPlace(i + 1+1, 1);
+                                    _longmen.BeginPlace(i + 1, 1);
 
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.StationPickUp)) Thread.Sleep(1000);
 
                                     //(包胶机) 包胶机卡盘松爪
-                                    (_line.Devices[$"bjj{i + 1+1}"] as WrapDevice).Placing(true); Thread.Sleep(3000);
+                                    (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Placing(true); Thread.Sleep(3000);
 
                                     //(龙门) 取件完成信号（PC-O14）
-                                    _longmen.EndPlace(i + 1+1, 1); Thread.Sleep(100);
+                                    _longmen.EndPlace(i + 1, 1); Thread.Sleep(100);
 
                                     //(包胶机) 龙门夹件完成
-                                    (_line.Devices[$"bjj{i + 1+1}"] as WrapDevice).Clamped(true); Thread.Sleep(100);
+                                    (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Clamped(true); Thread.Sleep(100);
 
                                     //(龙门) 检测工位卡盘开爪（PC-I4）
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.StationClampOpen)) Thread.Sleep(1000);
 
                                     //(龙门)卡盘开爪完成信号（PC-O15）
-                                    _longmen.EndPlace(i + 1+1, 2); Thread.Sleep(3000);
+                                    _longmen.EndPlace(i + 1, 2); Thread.Sleep(3000);
 
                                     //(龙门)卡盘可以闭爪（PC-I5）
                                     (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Placing(false); Thread.Sleep(2000);
 
                                     //(龙门)卡盘闭爪完成信号（PC-O16）
-                                    _longmen.EndPlace(i + 1+1, 3);
+                                    _longmen.EndPlace(i + 1, 3);
 
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.StationReady)) Thread.Sleep(1000);
                                     //(周转台) 输出气缸松开爪信号
@@ -641,7 +641,7 @@ namespace HuiJinYun.WD
                                             break;
                                     }
 
-                                    _longmen.BeginPlace(i + 1+1, 2);
+                                    _longmen.BeginPlace(i + 1, 2);
 
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.StationPlace)) Thread.Sleep(100);
 
@@ -675,11 +675,11 @@ namespace HuiJinYun.WD
                                             break;
                                     }
 
-                                    _longmen.EndPlace(i + 1+1, 4);
+                                    _longmen.EndPlace(i + 1, 4);
 
-                                    (_line.Devices[$"bjj{i + 1+1}"] as WrapDevice).EStop(true); Thread.Sleep(100);
+                                    (_line.Devices[$"bjj{i + 1}"] as WrapDevice).EStop(true); Thread.Sleep(100);
 
-                                    (_line.Devices[$"bjj{i + 1+1}"] as WrapDevice).EStop(false);
+                                    (_line.Devices[$"bjj{i + 1}"] as WrapDevice).EStop(false);
                                 }
 
                                 while (!Bit.Tst(_longmen.Status, eLongMenState.InitialStation)) Thread.Sleep(1000);
