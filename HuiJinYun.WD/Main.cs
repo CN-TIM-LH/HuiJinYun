@@ -716,9 +716,9 @@ namespace HuiJinYun.WD
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(100);
 
                                     //(周转台) 输出气缸松开爪信号
-                                    _switch.Clamp(i, true);
+                                    _switch.Clamp(i - 1, true);
 
-                                    switch (i)
+                                    switch (i - 1)
                                     {
                                         case 0:
                                             Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
@@ -754,8 +754,8 @@ namespace HuiJinYun.WD
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableClamping)) Thread.Sleep(1000);
 
                                     //(缠绕机) 输出周转盘夹紧
-                                    _switch.Clamp(i, false);
-                                    switch (i)
+                                    _switch.Clamp(i - 1, false);
+                                    switch (i - 1)
                                     {
                                         case 0:
                                             Bit.Clr(_switch.Status, eSwitchState.Clamped0);
@@ -808,7 +808,7 @@ namespace HuiJinYun.WD
                                     /****************End 机器人操作部分 *****************/
                                     return true;
                                 });
-                               
+                                if (i == 5 && null != taskEnlace) taskEnlace.Wait();
                             }
 
                             /*
