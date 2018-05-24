@@ -388,8 +388,16 @@ namespace HuiJinYun.Domain.Entity
                                 while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
                                 break;
                             case 4:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                if (i == 4)
+                                {
+                                    Bit.Clr(_switch.Status, eSwitchState.Clamped4);
+                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                }
+                                else if (i == 5)
+                                {
+                                    Bit.Clr(_switch.Status, eSwitchState.Clamped5);
+                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
+                                }
                                 break;
                             case 5:
                                 Bit.Clr(_switch.Status, eSwitchState.Clamped5);
@@ -421,8 +429,16 @@ namespace HuiJinYun.Domain.Entity
                                 while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
                                 break;
                             case 4:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                if (i == 4)
+                                {
+                                    Bit.Clr(_switch.Status, eSwitchState.Clamped4);
+                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                }
+                                else if (i == 5)
+                                {
+                                    Bit.Clr(_switch.Status, eSwitchState.Clamped5);
+                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
+                                }
                                 break;
                             case 5:
                                 Bit.Clr(_switch.Status, eSwitchState.Clamped5);
