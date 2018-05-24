@@ -715,7 +715,7 @@ namespace HuiJinYun.WD
                                     Bit.Clr(_enlace.Status, eEnlaceState.TurntableUndone);
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(100);
 
-                                    if (i < 5)
+                                    if (i <= 5)
                                     {
                                         //(周转台) 输出气缸松开爪信号
                                         _switch.Clamp(i - 1, true);
@@ -789,7 +789,7 @@ namespace HuiJinYun.WD
 
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableClamping)) Thread.Sleep(1000);
 
-                                    if (i < 5)
+                                    if (i <= 5)
                                     {
                                         //(缠绕机) 输出周转盘夹紧
                                         _switch.Clamp(i - 1, false);
