@@ -26,6 +26,10 @@ namespace HuiJinYun.Domain.Entity
         protected EnlaceDevice _enlace;
         protected WrapDevice[] _warps;
         protected Task _runningTask;
+
+        protected bool _isRepeatUnclamped = false;
+        protected bool _isRepeatclamped = false;
+
         public static event SyncSwitchHandler OnSync;
 
         public Dictionary<string, int> StationDictionary { get; set; }
@@ -292,77 +296,50 @@ namespace HuiJinYun.Domain.Entity
 
                     Bit.Clr(_enlace.Status, eEnlaceState.TurntableUndone);
                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(1000);
-                    if (i <= 5)
+
+                    switch (i - 1)
                     {
-                        //(周转台) 输出气缸松开爪信号
-                        _switch.Clamp(i - 1, true);
-                        switch (i - 1)
-                        {
-                            case 0:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped0)) Thread.Sleep(1000);
-                                break;
-                            case 1:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped1);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped1)) Thread.Sleep(1000);
-                                break;
-                            case 2:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped2);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped2)) Thread.Sleep(1000);
-                                break;
-                            case 3:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped3);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped3)) Thread.Sleep(1000);
-                                break;
-                            case 4:
-                                if (i == 4)
-                                {
+                        case 0:
+                            _switch.Clamp(0, true);
+                            Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped0)) Thread.Sleep(1000);
+                            break;
+                        case 1:
+                            _switch.Clamp(1, true);
+                            Bit.Clr(_switch.Status, eSwitchState.Unclamped1);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped1)) Thread.Sleep(1000);
+                            break;
+                        case 2:
+                            _switch.Clamp(2, true);
+                            Bit.Clr(_switch.Status, eSwitchState.Unclamped2);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped2)) Thread.Sleep(1000);
+                            break;
+                        case 3:
+                            _switch.Clamp(3, true);
+                            Bit.Clr(_switch.Status, eSwitchState.Unclamped3);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped3)) Thread.Sleep(1000);
+                            break;
+                        case 4:
+                            switch (_isRepeatUnclamped)
+                            {
+                                case false:
+                                    _switch.Clamp(4, true);
                                     Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
                                     while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
-                                }
-                                else if (i == 4)
-                                {
+                                    _isRepeatUnclamped = true;
+                                    break;
+                                case true:
+                                    _switch.Clamp(5, true);
                                     Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
                                     while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
-                                }
-                                break;
-                            case 5:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        //(周转台) 输出气缸松开爪信号
-                        _switch.Clamp(i, true);
-                        switch (i)
-                        {
-                            case 0:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped0)) Thread.Sleep(1000);
-                                break;
-                            case 1:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped1);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped1)) Thread.Sleep(1000);
-                                break;
-                            case 2:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped2);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped2)) Thread.Sleep(1000);
-                                break;
-                            case 3:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped3);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped3)) Thread.Sleep(1000);
-                                break;
-                            case 4:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
-                                break;
-                            case 5:
-                                Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
-                                break;
-                        }
+                                    break;
+                            }
+                            break;
+                        case 5:
+                            _switch.Clamp(5, true);
+                            Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
+                            break;
                     }
 
                     _enlace.UnRevolvingDisc(); Thread.Sleep(1000);
@@ -372,79 +349,50 @@ namespace HuiJinYun.Domain.Entity
 
                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableClamping)) Thread.Sleep(1000);
 
-                    if (i <=5)
+                    switch (i - 1)
                     {
-                        //(缠绕机) 输出周转盘夹紧
-                        _switch.Clamp(i - 1, false);
-
-                        switch (i - 1)
-                        {
-                            case 0:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped0);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped0)) Thread.Sleep(1000);
-                                break;
-                            case 1:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped1);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped1)) Thread.Sleep(1000);
-                                break;
-                            case 2:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped2);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped2)) Thread.Sleep(1000);
-                                break;
-                            case 3:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped3);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
-                                break;
-                            case 4:
-                                if (i == 4)
-                                {
-                                    Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
-                                }
-                                else if (i == 5)
-                                {
+                        case 0:
+                            _switch.Clamp(0, false);
+                            Bit.Clr(_switch.Status, eSwitchState.Clamped0);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped0)) Thread.Sleep(1000);
+                            break;
+                        case 1:
+                            _switch.Clamp(1, false);
+                            Bit.Clr(_switch.Status, eSwitchState.Clamped1);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped1)) Thread.Sleep(1000);
+                            break;
+                        case 2:
+                            _switch.Clamp(2, false);
+                            Bit.Clr(_switch.Status, eSwitchState.Clamped2);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped2)) Thread.Sleep(1000);
+                            break;
+                        case 3:
+                            _switch.Clamp(3, false);
+                            Bit.Clr(_switch.Status, eSwitchState.Clamped3);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
+                            break;
+                        case 4:
+                            switch (_isRepeatclamped)
+                            {
+                                case true:
+                                    _switch.Clamp(5, false);
                                     Bit.Clr(_switch.Status, eSwitchState.Clamped5);
                                     while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
-                                }
-                                break;
-                            case 5:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped5);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
-                                break;
-                        }
-                    } else
-                    {
 
-                        //(缠绕机) 输出周转盘夹紧
-                        _switch.Clamp(i, false);
-
-                        switch (i)
-                        {
-                            case 0:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped0);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped0)) Thread.Sleep(1000);
-                                break;
-                            case 1:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped1);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped1)) Thread.Sleep(1000);
-                                break;
-                            case 2:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped2);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped2)) Thread.Sleep(1000);
-                                break;
-                            case 3:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped3);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
-                                break;
-                            case 4:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
-                                break;
-                            case 5:
-                                Bit.Clr(_switch.Status, eSwitchState.Clamped5);
-                                while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
-                                break;
-                        }
+                                    break;
+                                case false:
+                                    _switch.Clamp(4, false);
+                                    Bit.Clr(_switch.Status, eSwitchState.Clamped4);
+                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                    _isRepeatclamped = true;
+                                    break;
+                            }
+                            break;
+                        case 5:
+                            _switch.Clamp(5, false);
+                            Bit.Clr(_switch.Status, eSwitchState.Clamped5);
+                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
+                            break;
                     }
                     _enlace.TurntableClampingReady();
 
