@@ -81,8 +81,8 @@ namespace HuiJinYun.Domain.Entity.Device
     /// </summary>
     public class SwitchDevice : PlcDeviceBase
     {
-        protected eSwitchOption _option = default(eSwitchOption);
-        protected eSwitchState _status = default(eSwitchState);
+        protected volatile dynamic _option = default(eSwitchOption);
+        protected volatile dynamic _status = default(eSwitchState);
         public eSwitchState Status
         {
             get

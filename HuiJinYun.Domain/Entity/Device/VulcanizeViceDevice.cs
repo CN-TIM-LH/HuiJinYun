@@ -51,10 +51,9 @@ namespace HuiJinYun.Domain.Entity.Device
     {
         //副同步到主
         public event ViceSyncHandler OnViceSync;
+        protected volatile dynamic _status = default(eVulcanizeViceState);
+        protected volatile dynamic _option = default(eVulcanizeViceOption);
 
-        protected eVulcanizeViceOption _option = default(eVulcanizeViceOption);
-
-        protected eVulcanizeViceState _status;
         public eVulcanizeViceState Status
         {
             get

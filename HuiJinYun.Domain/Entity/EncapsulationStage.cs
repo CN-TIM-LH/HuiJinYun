@@ -259,6 +259,8 @@ namespace HuiJinYun.Domain.Entity
                     /****************End 龙门包胶机操作部分 *****************/
                 }).Wait();
 
+                if (null != taskEnlace) taskEnlace.Wait();
+
                 if (i <= 5)
                 {
                     //(周转台) 输出气工位旋转
@@ -272,7 +274,6 @@ namespace HuiJinYun.Domain.Entity
                 }
 
 
-                if (null != taskEnlace) taskEnlace.Wait();
                 taskEnlace = Task.Run(() =>
                 {
                     /****************Start 机器人操作部分 *****************/

@@ -32,8 +32,6 @@ namespace HuiJinYun.Domain.Entity.Device
             get
             {
                 return _position;
-
-
             }
             protected set
             {

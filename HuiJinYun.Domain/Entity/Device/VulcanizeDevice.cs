@@ -62,8 +62,8 @@ namespace HuiJinYun.Domain.Entity.Device
     {
         public event SyncHandler OnSync;
 
-        protected eVulcanizeOption _option = default(eVulcanizeOption);
-        protected eVulcanizeState _status = default(eVulcanizeState);
+        protected volatile dynamic _option = default(eVulcanizeOption);
+        protected volatile dynamic _status = default(eVulcanizeState);
         public eVulcanizeState Status
         {
             get

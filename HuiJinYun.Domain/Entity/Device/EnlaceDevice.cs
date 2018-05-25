@@ -33,8 +33,8 @@ namespace HuiJinYun.Domain.Entity.Device
     /// </summary>
     public class EnlaceDevice : PlcDeviceBase
     {
-        protected eEnlaceOption _option = default(eEnlaceOption);
-        protected eEnlaceState _status = default(eEnlaceState);
+        protected volatile dynamic  _option = default(eEnlaceOption);
+        protected volatile dynamic  _status = default(eEnlaceState);
         public eEnlaceState Status
         {
             get

@@ -31,8 +31,8 @@ namespace HuiJinYun.Domain.Entity.Device
     /// </summary>
     public class WrapDevice : PlcDeviceBase
     {
-        protected eWrapOption _option = default(eWrapOption);
-        protected eWrapState _status = default(eWrapState);
+        protected volatile dynamic _option = default(eWrapOption);
+        protected volatile dynamic _status = default(eWrapState);
 
         public eWrapState Status
         {

@@ -67,8 +67,8 @@ namespace HuiJinYun.Domain.Entity.Device
         protected InstantDoCtrl _instantDoCtrl;
         protected InstantDiCtrl _instantDiCtrl;
 
-        protected eLongMenOption _option = default(eLongMenOption);
-        protected eLongMenState _status = default(eLongMenState);
+        protected volatile dynamic _option = default(eLongMenOption);
+        protected volatile dynamic _status = default(eLongMenState);
         public eLongMenOption Option
         {
             get

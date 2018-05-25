@@ -684,6 +684,8 @@ namespace HuiJinYun.WD
                                 }).Wait();
                                 //temp.GetAwaiter().GetResult();
 
+                                if (null != taskEnlace) taskEnlace.Wait();
+
                                 if (i <= 5)
                                 {
                                     //(周转台) 输出气工位旋转
@@ -695,7 +697,6 @@ namespace HuiJinYun.WD
                                     _switch.Rotate(false);
                                 }
 
-                                if (null != taskEnlace) taskEnlace.Wait();
                                 taskEnlace = Task.Run(() =>
                                 {
 
