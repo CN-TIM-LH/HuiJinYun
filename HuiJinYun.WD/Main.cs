@@ -229,7 +229,7 @@ namespace HuiJinYun.WD
 
                             context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, true);
 
-                            while (!Bit.Tst((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVGetTray))Thread.Sleep(1000) ;
+                            while (!Bit.Tst((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVGetTray)) Thread.Sleep(1000);
 
                             (_line.Devices["liuhuadaoMain"] as VulcanizeDevice).AGVExitWaiting(false);
 
@@ -298,7 +298,6 @@ namespace HuiJinYun.WD
 
                         // Encapsulation And Enlace End
                         #endregion
-                        MessageBox.Show("测试执行");
                         #region  Enlace Stage By Pass
                         stageDone = false;
                         //add await
@@ -318,7 +317,7 @@ namespace HuiJinYun.WD
 
                         Bit.Clr((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVSendTray);
 
-                        while (!Bit.Tst((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVSendTray))Thread.Sleep(1000);
+                        while (!Bit.Tst((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVSendTray)) Thread.Sleep(1000);
                         context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 1, true);
                         Thread.Sleep(2000);
                         await context.Work();

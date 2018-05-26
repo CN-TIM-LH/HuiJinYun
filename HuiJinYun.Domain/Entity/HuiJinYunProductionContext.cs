@@ -104,7 +104,7 @@ namespace HuiJinYun.Domain.Entity
             {
                 if (null != CurrentStage)
                 {
-                    CurrentStage.Work(this);
+                    CurrentStage.Work(this).Wait();
                     return true;
                 }
                 return false;
