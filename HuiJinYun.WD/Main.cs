@@ -298,7 +298,7 @@ namespace HuiJinYun.WD
 
                         // Encapsulation And Enlace End
                         #endregion
-
+                        MessageBox.Show("测试执行");
                         #region  Enlace Stage By Pass
                         stageDone = false;
                         //add await

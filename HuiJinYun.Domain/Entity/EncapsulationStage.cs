@@ -99,7 +99,7 @@ namespace HuiJinYun.Domain.Entity
             {
                 int pos = i;
                 //龙门包胶机操作线程
-             await  Task.Run(() =>
+                await  Task.Run(() =>
                 {
                     /****************Start 龙门包胶机操作部分 *****************/
                     _enlace.Reset(true); Thread.Sleep(100);
@@ -182,10 +182,6 @@ namespace HuiJinYun.Domain.Entity
                         //(龙门)卡盘闭爪完成信号（PC-O16）
                         _longmen.EndPlace(en.Id + 1, 3);
 
-                        _warps[en.Id].EStop(true); Thread.Sleep(1000);
-
-                        _warps[en.Id].EStop(false);
-
                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationReady)) Thread.Sleep(1000);
 
                         //(周转台) 输出气缸松开爪信号
@@ -249,7 +245,11 @@ namespace HuiJinYun.Domain.Entity
                                 while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
                                 break;
                         }
-                        _longmen.EndPlace(pos + 1, 4);
+                        _longmen.EndPlace(pos + 1, 4)
+
+                        _warps[en.Id].EStop(true); Thread.Sleep(1000);
+
+                        _warps[en.Id].EStop(false);
 
                         //_warps[en.Id].EStop(true); Thread.Sleep(1000);
 
@@ -404,8 +404,8 @@ namespace HuiJinYun.Domain.Entity
 
                     return true;
                 });
-                if (null != taskEnlace) taskEnlace.Wait();
             }
+            if (null != taskEnlace) await taskEnlace;
 
             /*
             //  旋转(缠绕六工位)
