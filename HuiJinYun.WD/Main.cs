@@ -526,6 +526,8 @@ namespace HuiJinYun.WD
                             //for (int i = 0; i <= 3; i++)
                             //for (int i = 0; i < 1; i++)
                             {
+                                int pos = i;
+                                bool suc = false;
                                 //龙门包胶机操作线程
                                 Task.Run(() =>
                                 {
@@ -535,17 +537,17 @@ namespace HuiJinYun.WD
                                     _enlace.Reset(true); Thread.Sleep(1000);
                                     _enlace.Reset(false);
                                     #region Encapsulation longmen
-                                    if (i < 6)
-                                    //if (i < 3)
-                                    //if (i < 1)
+                                    if (pos < 6)
+                                    //if (pos < 3)
+                                    //if (pos < 1)
                                     {
                                         _longmen.BeginPickup(0);
 
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.InitialPickup)) Thread.Sleep(1000);
 
-                                        _switch.Clamp(i, true);
+                                        _switch.Clamp(pos, true);
 
-                                        switch (i)
+                                        switch (pos)
                                         {
                                             case 0:
                                                 Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
@@ -578,36 +580,36 @@ namespace HuiJinYun.WD
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.InitialReady)) Thread.Sleep(1000);
 
                                         //(龙门) 输出工位信号和工位等待信号（PC-O0）
-                                        _longmen.BeginPlace(i + 1, 1);
+                                        _longmen.BeginPlace(pos + 1, 1);
 
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationPickUp)) Thread.Sleep(1000);
 
                                         //(包胶机) 包胶机卡盘松爪
-                                        (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Placing(true); Thread.Sleep(3000);
+                                        (_line.Devices[$"bjj{pos + 1}"] as WrapDevice).Placing(true); Thread.Sleep(3000);
 
                                         //(龙门) 取件完成信号（PC-O14）
-                                        _longmen.EndPlace(i + 1, 1); Thread.Sleep(100);
+                                        _longmen.EndPlace(pos + 1, 1); Thread.Sleep(100);
 
                                         //(包胶机) 龙门夹件完成
-                                        (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Clamped(true); Thread.Sleep(100);
+                                        (_line.Devices[$"bjj{pos + 1}"] as WrapDevice).Clamped(true); Thread.Sleep(100);
 
                                         //(龙门) 检测工位卡盘开爪（PC-I4）
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationClampOpen)) Thread.Sleep(1000);
 
                                         //(龙门)卡盘开爪完成信号（PC-O15）
-                                        _longmen.EndPlace(i + 1, 2); Thread.Sleep(3000);
+                                        _longmen.EndPlace(pos + 1, 2); Thread.Sleep(3000);
 
                                         //(龙门)卡盘可以闭爪（PC-I5）
-                                        (_line.Devices[$"bjj{i + 1}"] as WrapDevice).Placing(false); Thread.Sleep(2000);
+                                        (_line.Devices[$"bjj{pos + 1}"] as WrapDevice).Placing(false); Thread.Sleep(2000);
 
                                         //(龙门)卡盘闭爪完成信号（PC-O16）
-                                        _longmen.EndPlace(i + 1, 3);
+                                        _longmen.EndPlace(pos + 1, 3);
 
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationReady)) Thread.Sleep(1000);
                                         //(周转台) 输出气缸松开爪信号
-                                        _switch.Clamp(i, true);
+                                        _switch.Clamp(pos, true);
 
-                                        switch (i)
+                                        switch (pos)
                                         {
                                             case 0:
                                                 Bit.Clr(_switch.Status, eSwitchState.Unclamped0);
@@ -635,13 +637,13 @@ namespace HuiJinYun.WD
                                                 break;
                                         }
 
-                                        _longmen.BeginPlace(i + 1, 2);
+                                        _longmen.BeginPlace(pos + 1, 2);
 
                                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationPlace)) Thread.Sleep(100);
 
-                                        _switch.Clamp(i, false);
+                                        _switch.Clamp(pos, false);
 
-                                        switch (i)
+                                        switch (pos)
                                         {
                                             case 0:
                                                 Bit.Clr(_switch.Status, eSwitchState.Clamped0);
@@ -669,11 +671,11 @@ namespace HuiJinYun.WD
                                                 break;
                                         }
 
-                                        _longmen.EndPlace(i + 1, 4);
+                                        _longmen.EndPlace(pos + 1, 4);
 
-                                        (_line.Devices[$"bjj{i + 1}"] as WrapDevice).EStop(true); Thread.Sleep(100);
+                                        (_line.Devices[$"bjj{pos + 1}"] as WrapDevice).EStop(true); Thread.Sleep(100);
 
-                                        (_line.Devices[$"bjj{i + 1}"] as WrapDevice).EStop(false);
+                                        (_line.Devices[$"bjj{pos + 1}"] as WrapDevice).EStop(false);
                                     }
 
                                     while (!Bit.Tst(_longmen.Status, eLongMenState.InitialStation)) Thread.Sleep(1000);
@@ -684,9 +686,9 @@ namespace HuiJinYun.WD
                                 }).Wait();
                                 //temp.GetAwaiter().GetResult();
 
-                                if (null != taskEnlace) taskEnlace.Wait();
+                                if (null != taskEnlace) suc = taskEnlace.Result;
 
-                                if (i <= 5)
+                                if (pos <= 5)
                                 {
                                     //(周转台) 输出气工位旋转
                                     _switch.Rotate(); Thread.Sleep(10000);
@@ -699,14 +701,13 @@ namespace HuiJinYun.WD
 
                                 taskEnlace = Task.Run(() =>
                                 {
-
                                     /****************Start 机器人操作部分 *****************/
 
                                     #region Enlace
 
                                     _enlace.RevolvingDiscInPlace(); Thread.Sleep(3000);
 
-                                    //if (i < 1)
+                                    //if (pos < 1)
                                     //{
                                     //    //(缠绕机) 输出启动
                                     //    _enlace.Start(); Thread.Sleep(1000);
@@ -718,7 +719,7 @@ namespace HuiJinYun.WD
                                     Bit.Clr(_enlace.Status, eEnlaceState.TurntableUndone);
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(100);
                                     //(周转台) 输出气缸松开爪信号
-                                    switch (i - 1)
+                                    switch (pos)
                                     {
                                         case 0:
                                             _switch.Clamp(0, true);
@@ -741,20 +742,23 @@ namespace HuiJinYun.WD
                                             while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped3)) Thread.Sleep(1000);
                                             break;
                                         case 4:
-                                            switch (_isRepeatUnclamped)
-                                            {
-                                                case false:
-                                                    _switch.Clamp(4, true);
-                                                    Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
-                                                    while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
-                                                    _isRepeatUnclamped = true;
-                                                    break;
-                                                case true:
-                                                    _switch.Clamp(5, true);
-                                                    Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
-                                                    while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
-                                                    break;
-                                            }
+                                            _switch.Clamp(4, true);
+                                            Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
+                                            while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
+                                            //switch (_isRepeatUnclamped)
+                                            //{
+                                            //    case false:
+                                            //        _switch.Clamp(4, true);
+                                            //        Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
+                                            //        while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
+                                            //        _isRepeatUnclamped = true;
+                                            //        break;
+                                            //    case true:
+                                            //        _switch.Clamp(5, true);
+                                            //        Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
+                                            //        while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
+                                            //        break;
+                                            //}
                                             break;
                                         case 5:
                                             _switch.Clamp(5, true);
@@ -772,7 +776,7 @@ namespace HuiJinYun.WD
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableClamping)) Thread.Sleep(1000);
 
                                     //(缠绕机) 输出周转盘夹紧
-                                    switch (i - 1)
+                                    switch (pos)
                                     {
                                         case 0:
                                             _switch.Clamp(0, false);
@@ -795,21 +799,24 @@ namespace HuiJinYun.WD
                                             while (!Bit.Tst(_switch.Status, eSwitchState.Clamped3)) Thread.Sleep(1000);
                                             break;
                                         case 4:
-                                            switch (_isRepeatclamped)
-                                            {
-                                                case true:
-                                                    _switch.Clamp(5, false);
-                                                    Bit.Clr(_switch.Status, eSwitchState.Clamped5);
-                                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
+                                            _switch.Clamp(4, false);
+                                            Bit.Clr(_switch.Status, eSwitchState.Clamped4);
+                                            while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                            /* switch (_isRepeatclamped)
+                                             {
+                                                 case true:
+                                                     _switch.Clamp(5, false);
+                                                     Bit.Clr(_switch.Status, eSwitchState.Clamped5);
+                                                     while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
 
-                                                    break;
-                                                case false:
-                                                    _switch.Clamp(4, false);
-                                                    Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                                    while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
-                                                    _isRepeatclamped = true;
-                                                    break;
-                                            }
+                                                     break;
+                                                 case false:
+                                                     _switch.Clamp(4, false);
+                                                     Bit.Clr(_switch.Status, eSwitchState.Clamped4);
+                                                     while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
+                                                     _isRepeatclamped = true;
+                                                     break;
+                                             }*/
                                             break;
                                         case 5:
                                             _switch.Clamp(5, false);
@@ -844,7 +851,7 @@ namespace HuiJinYun.WD
                                     /****************End 机器人操作部分 *****************/
                                     return true;
                                 });
-                                if (i == 5 && null != taskEnlace) taskEnlace.Wait();
+                                if (pos == 5 && null != taskEnlace) taskEnlace.Wait();
                             }
 
                             /*
