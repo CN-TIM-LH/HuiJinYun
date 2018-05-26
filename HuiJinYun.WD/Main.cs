@@ -682,15 +682,12 @@ namespace HuiJinYun.WD
                                     /****************End 龙门包胶机操作部分 *****************/
                                     return true;
                                 });
-                                //temp.GetAwaiter().GetResult();
 
                                 if (null != taskEnlace) await taskEnlace;
-
                                 if (pos <= 5)
                                 {
                                     //(周转台) 输出气工位旋转
                                     _switch.Rotate(); Thread.Sleep(10000);
-
                                     Bit.Clr(_switch.Status, eSwitchState.Rotate);
                                     while (!Bit.Tst(_switch.Status, eSwitchState.Rotate)) Thread.Sleep(1000);
                                     //(周转台) 输出气工位旋转信号 关闭
@@ -743,20 +740,6 @@ namespace HuiJinYun.WD
                                             _switch.Clamp(4, true);
                                             Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
                                             while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
-                                            //switch (_isRepeatUnclamped)
-                                            //{
-                                            //    case false:
-                                            //        _switch.Clamp(4, true);
-                                            //        Bit.Clr(_switch.Status, eSwitchState.Unclamped4);
-                                            //        while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped4)) Thread.Sleep(1000);
-                                            //        _isRepeatUnclamped = true;
-                                            //        break;
-                                            //    case true:
-                                            //        _switch.Clamp(5, true);
-                                            //        Bit.Clr(_switch.Status, eSwitchState.Unclamped5);
-                                            //        while (!Bit.Tst(_switch.Status, eSwitchState.Unclamped5)) Thread.Sleep(1000);
-                                            //        break;
-                                            //}
                                             break;
                                         case 5:
                                             _switch.Clamp(5, true);
@@ -799,21 +782,6 @@ namespace HuiJinYun.WD
                                             _switch.Clamp(4, false);
                                             Bit.Clr(_switch.Status, eSwitchState.Clamped4);
                                             while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
-                                            /* switch (_isRepeatclamped)
-                                             {
-                                                 case true:
-                                                     _switch.Clamp(5, false);
-                                                     Bit.Clr(_switch.Status, eSwitchState.Clamped5);
-                                                     while (!Bit.Tst(_switch.Status, eSwitchState.Clamped5)) Thread.Sleep(1000);
-
-                                                     break;
-                                                 case false:
-                                                     _switch.Clamp(4, false);
-                                                     Bit.Clr(_switch.Status, eSwitchState.Clamped4);
-                                                     while (!Bit.Tst(_switch.Status, eSwitchState.Clamped4)) Thread.Sleep(1000);
-                                                     _isRepeatclamped = true;
-                                                     break;
-                                             }*/
                                             break;
                                         case 5:
                                             _switch.Clamp(5, false);
@@ -848,8 +816,8 @@ namespace HuiJinYun.WD
                                     /****************End 机器人操作部分 *****************/
                                     return true;
                                 });
-                                if (pos == 5 && null != taskEnlace) taskEnlace.Wait();
                             }
+                            if (null != taskEnlace) await taskEnlace;
 
                             /*
                             var task1 = Task.Run(() =>
