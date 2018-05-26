@@ -293,6 +293,7 @@ namespace HuiJinYun.WD
                         //20180424
                         context.asyncWork().Wait();
 
+                        MessageBox.Show("等待");
                         _pieceNumber = _pieceNumber * 6;
                         _u3d.SendMessage("{ Type:js,Number:" + _pieceNumber + "}");
 
