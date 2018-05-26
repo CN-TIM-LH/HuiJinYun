@@ -527,7 +527,7 @@ namespace HuiJinYun.WD
                             {
                                 int pos = i;
                                 //龙门包胶机操作线程
-                                Task.Run(() =>
+                                await Task.Run(() =>
                                 {
 
                                     /****************Start 龙门包胶机操作部分 *****************/
@@ -681,7 +681,7 @@ namespace HuiJinYun.WD
 
                                     /****************End 龙门包胶机操作部分 *****************/
                                     return true;
-                                }).Wait();
+                                });
                                 //temp.GetAwaiter().GetResult();
 
                                 if (null != taskEnlace) await taskEnlace;
