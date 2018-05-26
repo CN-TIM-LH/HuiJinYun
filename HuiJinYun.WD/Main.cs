@@ -291,7 +291,7 @@ namespace HuiJinYun.WD
 
                         //龙门工序
                         //20180424
-                        await context.Work();
+                        await context.asyncWork();
 
                         _pieceNumber = _pieceNumber * 6;
                         _u3d.SendMessage("{ Type:js,Number:" + _pieceNumber + "}");

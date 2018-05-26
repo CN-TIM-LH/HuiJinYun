@@ -21,6 +21,7 @@ namespace HuiJinYun.Domain.Entity
     {
         eProductionStageState Status { get; }
         IProductionStage Work(object args, out object result);
+        Task<IProductionStage> Work(object args);
         IProductionStage Bypass(object args, out object result);
     }
 }

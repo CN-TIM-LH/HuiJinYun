@@ -28,6 +28,11 @@ namespace HuiJinYun.Domain.Entity
             return this;
         }
 
+        public async Task<IProductionStage> Work(object args)
+        {
+            return this;
+        }
+
         public IProductionStage Work(object args, out object result)
         {
             var context = (HuiJinYunProductionContext)args;

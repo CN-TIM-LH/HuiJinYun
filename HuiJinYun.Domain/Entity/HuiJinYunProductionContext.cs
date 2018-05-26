@@ -98,6 +98,19 @@ namespace HuiJinYun.Domain.Entity
             });
         }
 
+        public Task<bool> asyncWork()
+        {
+            return Task.Run(() =>
+            {
+                if (null != CurrentStage)
+                {
+                    CurrentStage.Work(this);
+                    return true;
+                }
+                return false;
+            });
+        }
+
         public Task<bool> Bypass()
         {
             return Task.Run(() =>

@@ -45,14 +45,20 @@ namespace HuiJinYun.Domain.Entity
             _warps = wraps;
         }
 
-        public IProductionStage Bypass(object args, out object result)
+        public  IProductionStage Bypass(object args, out object result)
         {
             var context = (HuiJinYunProductionContext)args;
             result = null;
             return this;
         }
-
         public IProductionStage Work(object args, out object result)
+        {
+            result = null;
+            return this;
+        }
+
+
+        public async Task<IProductionStage> Work(object args)
         {
             Update(args);
 
@@ -93,7 +99,7 @@ namespace HuiJinYun.Domain.Entity
             {
                 int pos = i;
                 //龙门包胶机操作线程
-                Task.Run(() =>
+             await  Task.Run(() =>
                 {
                     /****************Start 龙门包胶机操作部分 *****************/
                     _enlace.Reset(true); Thread.Sleep(100);
@@ -255,10 +261,9 @@ namespace HuiJinYun.Domain.Entity
 
                     while (!Bit.Tst(_longmen.Status, eLongMenState.InitialStation)) Thread.Sleep(1000);
                     #endregion
-
                     return true;
                     /****************End 龙门包胶机操作部分 *****************/
-                }).Wait();
+                });
 
                 if (null != taskEnlace) taskEnlace.Wait();
 
@@ -429,7 +434,7 @@ namespace HuiJinYun.Domain.Entity
             context.CurrentAGV.State = eHuiJinYunAGVState.Tray;
             Status = eProductionStageState.Finish;
 
-            result = null;
+            //result = null;
 #if DEBUG
             Logger.LogInfo($"EncapsulationStage Finish");
 #endif
