@@ -236,7 +236,7 @@ namespace HuiJinYun.WD
                             //Thread.Sleep(1000);
                             //context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, true);
 
-                            Thread.Sleep(40000);
+                            Thread.Sleep(90000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).OutToAGV(false);
                             Thread.Sleep(1000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).StopOutToAGV(true);
@@ -291,7 +291,7 @@ namespace HuiJinYun.WD
 
                         //龙门工序
                         //20180424
-                        await context.asyncWork();
+                        context.asyncWork().Wait();
 
                         _pieceNumber = _pieceNumber * 6;
                         _u3d.SendMessage("{ Type:js,Number:" + _pieceNumber + "}");
