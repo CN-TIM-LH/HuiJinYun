@@ -482,12 +482,11 @@ namespace HuiJinYun.WD
                 this.bt_Enlace.Enabled = false;
                 if (this.rb_Manual.Checked && (false == this.bt_Enlace.Enabled))
                 {
-                    await Task.Run(() =>
+                    await Task.Run(async () =>
                     {
                         try
                         {
                             #region Encapsulation Stage
-
 
                             // Encapsulation And Enlace Begin
                             var _switch = (_line.Devices["bjswitch"] as SwitchDevice);
@@ -685,7 +684,7 @@ namespace HuiJinYun.WD
                                 }).Wait();
                                 //temp.GetAwaiter().GetResult();
 
-                                if (null != taskEnlace) taskEnlace.Wait();
+                                if (null != taskEnlace) await taskEnlace;
 
                                 if (pos <= 5)
                                 {
@@ -773,7 +772,6 @@ namespace HuiJinYun.WD
                                     Bit.Clr(_enlace.Status, eEnlaceState.TurntableClamping);
 
                                     while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableClamping)) Thread.Sleep(1000);
-
                                     //(缠绕机) 输出周转盘夹紧
                                     switch (pos)
                                     {
