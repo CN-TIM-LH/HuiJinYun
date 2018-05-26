@@ -527,7 +527,6 @@ namespace HuiJinYun.WD
                             //for (int i = 0; i < 1; i++)
                             {
                                 int pos = i;
-                                bool suc = false;
                                 //龙门包胶机操作线程
                                 Task.Run(() =>
                                 {
@@ -686,7 +685,7 @@ namespace HuiJinYun.WD
                                 }).Wait();
                                 //temp.GetAwaiter().GetResult();
 
-                                if (null != taskEnlace) suc = taskEnlace.Result;
+                                if (null != taskEnlace) taskEnlace.Wait();
 
                                 if (pos <= 5)
                                 {
