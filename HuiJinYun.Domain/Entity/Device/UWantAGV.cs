@@ -373,8 +373,11 @@ namespace HuiJinYun.Domain.Entity.Device
                 var res = BitConverter.ToString(result).Replace('-', ' ');
                 Logger.LogInfo($"AGV{_AGVNo}:goto {pos}@{mode}, res:{res}");
             }
-            catch
+            catch(Exception ex)
             {
+                //var pos = System.Enum.GetName(typeof(TPosition), position);
+                //var res = BitConverter.ToString(result).Replace('-', ' ');
+                Logger.ErrorInfo($"AGV{_AGVNo}:goto {position}@{mode}, res:{result}",ex);
             }
 #endif
 

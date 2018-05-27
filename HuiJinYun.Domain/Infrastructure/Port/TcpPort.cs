@@ -41,7 +41,9 @@ namespace HuiJinYun.Domain.Infrastructure.Port
                 _client.Connect(_hostname, _port);
             }
             catch { }
-            new Thread(ReceiveThread).Start();
+            var recv = new Thread(ReceiveThread);
+            recv.Priority = ThreadPriority.Highest;
+            recv.Start();
             return this;
         }
 
