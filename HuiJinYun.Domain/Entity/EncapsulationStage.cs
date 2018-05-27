@@ -280,7 +280,7 @@ namespace HuiJinYun.Domain.Entity
                     /****************End 龙门包胶机操作部分 *****************/
                 });
 
-                if (null != taskEnlace) taskEnlace.Wait();
+                if (null != taskEnlace) await taskEnlace;
 
                 if (pos <= 5)
                 {
@@ -290,7 +290,6 @@ namespace HuiJinYun.Domain.Entity
                     while (!Bit.Tst(_switch.Status, eSwitchState.Rotate)) Thread.Sleep(1000);
                     //(周转台) 输出气工位旋转信号 关闭
                     _switch.Rotate(false);
-
                 }
 
 
@@ -316,7 +315,7 @@ namespace HuiJinYun.Domain.Entity
                     _enlace.RevolvingDiscInPlace(false); Thread.Sleep(100);
 
                     Bit.Clr(_enlace.Status, eEnlaceState.TurntableUndone);
-                    while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(1000);
+                    while (!Bit.Tst(_enlace.Status, eEnlaceState.TurntableUndone)) Thread.Sleep(100);
 
                     switch (pos)
                     {
@@ -412,8 +411,8 @@ namespace HuiJinYun.Domain.Entity
 
                     /****************End 机器人操作部分 *****************/
 
-                    //_enlace.Reset(true); Thread.Sleep(100);
-                    //_enlace.Reset(false);
+                    _enlace.Reset(true); Thread.Sleep(100);
+                    _enlace.Reset(false);
 
                     return true;
                 });
