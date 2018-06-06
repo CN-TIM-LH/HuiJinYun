@@ -59,6 +59,10 @@ namespace HuiJinYun.Domain.Infrastructure.Port
                     Array.Copy(_buffer, data, length);
                     OnReceived(this, new PortReceivedEventArgs(data, length));
                 }
+                else
+                {
+                    Thread.Sleep(1000);
+                }
             }
         }
 
@@ -66,7 +70,7 @@ namespace HuiJinYun.Domain.Infrastructure.Port
         {
             if (null == _client)
                 Connect();
-            while (null == _stream) ;
+            while (null == _stream) Thread.Sleep(1);
 
             data = null;
             length = (0 == length ? _buffer.Length : length);
@@ -97,7 +101,7 @@ namespace HuiJinYun.Domain.Infrastructure.Port
             //        Connect();
             //        if (_client.Connected) break;
             //    }
-            while (null == _stream) { }
+            while (null == _stream) Thread.Sleep(1);
             try
             {
                 if (_client.Connected)

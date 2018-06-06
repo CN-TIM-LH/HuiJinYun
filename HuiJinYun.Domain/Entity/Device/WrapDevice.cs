@@ -33,6 +33,7 @@ namespace HuiJinYun.Domain.Entity.Device
     {
         protected volatile dynamic _option = default(eWrapOption);
         protected volatile dynamic _status = default(eWrapState);
+        public volatile int ZeroTimestamp = int.MaxValue;
 
         public eWrapState Status
         {
@@ -49,10 +50,8 @@ namespace HuiJinYun.Domain.Entity.Device
             }
         }
 
-
         public WrapDevice(IPort port, ISerialize serialize) : base(port, serialize)
         {
-            
                 _port.Write(_serialize.Serialize(new ReadRandomCommand(eElementCode.M, 2 * 16)))
                     .Read(out byte[] result);
                 var res = _serialize.Deserialize<ReadRandomResult>(result);
@@ -90,6 +89,12 @@ namespace HuiJinYun.Domain.Entity.Device
                     return newState;
                 });
                 Status = await status;
+                
+                if ((int.MaxValue <= ZeroTimestamp) && Bit.Tst(Status, eWrapState.ToZero))
+                {
+                    DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+                    ZeroTimestamp = (int)(DateTime.Now - startTime).TotalSeconds;
+                }
             }
         }
 

@@ -97,7 +97,7 @@ namespace HuiJinYun.WD
         protected async void ReceiveThread()
         {
             var buffer = new byte[1024];
-            while (!_client.Connected) { }
+            while (!_client.Connected) Thread.Sleep(1000);
             var stream = _client.GetStream();
             while (isWhile)
             {

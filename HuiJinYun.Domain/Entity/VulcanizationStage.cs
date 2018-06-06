@@ -59,7 +59,7 @@ namespace HuiJinYun.Domain.Entity
             bool stageDone;
             stageDone = false;
             var context = (HuiJinYunProductionContext)args;
-            while (eHuiJinYunStagePosition.Vulcanization != context.Position) ;
+            while (eHuiJinYunStagePosition.Vulcanization != context.Position) Thread.Sleep(1000);
 
             try
             {
@@ -77,7 +77,7 @@ namespace HuiJinYun.Domain.Entity
             return this;
         }
 
-         #region Update
+        #region Update
         public async void Update()
         {
             while (true)

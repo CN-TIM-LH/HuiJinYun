@@ -60,8 +60,6 @@ namespace HuiJinYun.Domain.Entity
 
         public async Task<IProductionStage> Work(object args)
         {
-            Update(args);
-
             var context = (HuiJinYunProductionContext)args;
             var switchWatcher = new NotifyWatcher(_switch);
             var longmenWatcher = new NotifyWatcher(_longmen);
@@ -152,40 +150,39 @@ namespace HuiJinYun.Domain.Entity
 
 
                         //选择工位
-                        while (context.EncapsulationDevice.Count < 1) ; Thread.Sleep(1000);
-
-                        Encapsulation en = context.EncapsulationDevice[0];
-
+                        int en;
+                        while((en = FindWrap()) == -1) Thread.Sleep(1000);
+                        
                         //_enlace.Reset(true); Thread.Sleep(100);
                         //_enlace.Reset(false);
 
                         //(龙门) 输出工位信号和工位等待信号（PC-O0）
-                        _longmen.BeginPlace(en.Id + 1, 1);
+                        _longmen.BeginPlace(en + 1, 1);
 
                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationPickUp)) Thread.Sleep(1000);
 
                         //(包胶机) 包胶机卡盘松爪
-                        _warps[en.Id].Placing(true); Thread.Sleep(3000);
+                        _warps[en].Placing(true); Thread.Sleep(3000);
 
                         //(龙门) 取件完成信号（PC-O14）
-                        _longmen.EndPlace(en.Id + 1, 1); Thread.Sleep(100);
+                        _longmen.EndPlace(en + 1, 1); Thread.Sleep(100);
 
                         //(包胶机) 龙门夹件完成
-                        _warps[en.Id].Clamped(true); Thread.Sleep(3000);
-                        _warps[en.Id].Clamped(false);
+                        _warps[en].Clamped(true); Thread.Sleep(3000);
+                        _warps[en].Clamped(false);
 
 
                         //(龙门) 检测工位卡盘开爪（PC-I4）
                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationClampOpen)) Thread.Sleep(1000);
 
                         //(龙门)卡盘开爪完成信号（PC-O15）
-                        _longmen.EndPlace(en.Id + 1, 2); Thread.Sleep(3000);
+                        _longmen.EndPlace(en + 1, 2); Thread.Sleep(3000);
 
                         //(龙门)卡盘可以闭爪（PC-I5）
-                        _warps[en.Id].Placing(false); Thread.Sleep(2000);
+                        _warps[en].Placing(false); Thread.Sleep(2000);
 
                         //(龙门)卡盘闭爪完成信号（PC-O16）
-                        _longmen.EndPlace(en.Id + 1, 3);
+                        _longmen.EndPlace(en + 1, 3);
 
                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationReady)) Thread.Sleep(1000);
 
@@ -224,7 +221,7 @@ namespace HuiJinYun.Domain.Entity
                                 break;
                         }
 
-                        _longmen.BeginPlace(en.Id + 1, 2);
+                        _longmen.BeginPlace(en + 1, 2);
                         while (!Bit.Tst(_longmen.Status, eLongMenState.StationPlace)) Thread.Sleep(1000);
 
                         switch (pos)
@@ -262,16 +259,16 @@ namespace HuiJinYun.Domain.Entity
                         }
                         _longmen.EndPlace(pos + 1, 4);
 
-                        _warps[en.Id].EStop(true); Thread.Sleep(1000);
+                        _warps[en].EStop(true); Thread.Sleep(1000);
 
-                        _warps[en.Id].EStop(false);
+                        _warps[en].EStop(false);
 
-                        //_warps[en.Id].EStop(true); Thread.Sleep(1000);
+                        //_warps[en].EStop(true); Thread.Sleep(1000);
 
-                        //_warps[en.Id].EStop(false);
+                        //_warps[en].EStop(false);
                         Thread.Sleep(1000);
                         //移除操作工位
-                        context.EncapsulationDevice.Remove(en);
+                        //context.EncapsulationDevice.Remove(en);
                     }
 
                     while (!Bit.Tst(_longmen.Status, eLongMenState.InitialStation)) Thread.Sleep(1000);
@@ -491,5 +488,21 @@ namespace HuiJinYun.Domain.Entity
             }
         }
         #endregion
+
+        public int FindWrap()
+        {
+            int curTimestamp = int.MaxValue;
+            int index = -1;
+            for (int i = 0; i < _warps.Length; i++)
+            {
+                if (curTimestamp > _warps[i].ZeroTimestamp)
+                {
+                    index = i;
+                    curTimestamp = _warps[i].ZeroTimestamp;
+                }
+            }
+            _warps[index].ZeroTimestamp = int.MaxValue;
+            return index;
+        }
     }
 }

@@ -140,7 +140,7 @@ namespace HuiJinYun.Domain.Entity
                     return true;
                 });
             }
-            return Task.Run<bool>(() => false);
+            return Task.FromResult<bool>(false);
         }
     }
 }
