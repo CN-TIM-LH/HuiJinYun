@@ -182,7 +182,7 @@ namespace HuiJinYun.Domain.Entity.Device
                 _port.Write(_serialize.Serialize(new WriteRandomCommand(eElementCode.M, 2 * 16, (ushort)_option)));
                 _port.Read(out result);
             }
-
+            ZeroTimestamp = int.MaxValue;
 #if DEBUG
             var res = _serialize.Deserialize<WriteRandomResult>(result);
             Logger.LogInfo($"Wrap:EStop, code:{res.Code.ToString()}");

@@ -260,12 +260,7 @@ namespace HuiJinYun.Domain.Entity
                         _longmen.EndPlace(pos + 1, 4);
 
                         _warps[en].EStop(true); Thread.Sleep(1000);
-
                         _warps[en].EStop(false);
-
-                        //_warps[en].EStop(true); Thread.Sleep(1000);
-
-                        //_warps[en].EStop(false);
                         Thread.Sleep(1000);
                         //移除操作工位
                         //context.EncapsulationDevice.Remove(en);
@@ -501,7 +496,6 @@ namespace HuiJinYun.Domain.Entity
                     curTimestamp = _warps[i].ZeroTimestamp;
                 }
             }
-            _warps[index].ZeroTimestamp = int.MaxValue;
             return index;
         }
     }
