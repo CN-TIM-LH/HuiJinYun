@@ -10,6 +10,7 @@ namespace HuiJinYun.Domain.Entity.Device
         int Number { get;  set; }
         IAGV<TState, TPosition> Goto(TPosition position, int mode = 0);
         IAGV<TState, TPosition> Export(TPosition position, int port, bool enable);
+        IAGV<TState, TPosition> checkTrayState();
         IAGV<TState, TPosition> CheckTray(TPosition position);
         IAGV<TState, TPosition> Stop(int mode = 0);
     }

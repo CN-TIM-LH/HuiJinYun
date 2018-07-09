@@ -1,4 +1,5 @@
-﻿using HuiJinYun.Domain.Entity.Device;
+﻿using HuiJinYun.Domain.Entity.AGV;
+using HuiJinYun.Domain.Entity.Device;
 using HuiJinYun.Domain.Enum;
 using HuiJinYun.Domain.Infrastructure.Common;
 using HuiJinYun.Domain.Infrastructure.Watcher;

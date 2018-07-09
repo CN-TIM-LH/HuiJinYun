@@ -18,7 +18,7 @@ namespace HuiJinYun.Domain.Entity.Device
         protected ISerialize _serialize;
         protected byte _AGVNo;
         protected volatile dynamic _position = default(TPosition); //  volatile dynamic   TPosition
-        protected TState _state;
+        protected volatile dynamic _state = default(TState);
         public static event SyncAGVHandler OnSync;
 
         protected const int BUFFER_SIZE = 126;
@@ -479,6 +479,13 @@ namespace HuiJinYun.Domain.Entity.Device
             //Thread.Sleep(300);
             //  _port.Read(out result, 0, 20 * 3);
 
+            return this;
+        }
+
+        public IAGV<TState, TPosition> checkTrayState()
+        {
+            Bit.Clr(_state, eAGVState.BackupOff);
+            while (!Bit.Tst(_state, eAGVState.BackupOff)) Thread.Sleep(1000);
             return this;
         }
 

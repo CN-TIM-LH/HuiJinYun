@@ -168,7 +168,7 @@ namespace HuiJinYun.Domain.Entity
                         _longmen.EndPlace(en + 1, 1); Thread.Sleep(100);
 
                         //(包胶机) 龙门夹件完成
-                        _warps[en].Clamped(true); Thread.Sleep(3000);
+                        _warps[en].Clamped(true); Thread.Sleep(5000);
                         _warps[en].Clamped(false);
 
 

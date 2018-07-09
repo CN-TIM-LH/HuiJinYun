@@ -264,6 +264,10 @@ namespace HuiJinYun.WD
 
                         #region  Peptization Stage
                         //add await
+
+                        //添加小车接盘检测
+                        context.CurrentAGV.checkTrayState();
+
                         await context.NextStage();
                         //Peptization Start
 
