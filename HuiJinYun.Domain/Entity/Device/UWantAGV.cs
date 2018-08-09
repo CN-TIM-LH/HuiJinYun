@@ -180,7 +180,15 @@ namespace HuiJinYun.Domain.Entity.Device
                         if (res.UPHead == (0x80 + _AGVNo) && eAgvResultWord.State == res.CommandWord)
                         {
                             Position = (TPosition)System.Enum.ToObject(typeof(TPosition), res.NodeNumber);
-                            State = (TState)System.Enum.ToObject(typeof(TState), res.State);
+                            //State = (TState)System.Enum.ToObject(typeof(TState), res.State);
+                            if (Bit.Tst(res.State, eAGVState.BackupOff))
+                            {
+                                State = (TState)System.Enum.Parse(typeof(TState), "Tray");
+                            }
+                            else
+                            {
+                                State = default(TState);
+                            }
                         }
                     }
                     catch

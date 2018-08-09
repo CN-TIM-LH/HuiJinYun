@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HuiJinYun.Domain.Entity.AGV
 {
-    public enum eAGVState:Int32
+    public enum eAGVState:UInt32
     {
         None = 0x000000,
         FontLIR = 0x000001,

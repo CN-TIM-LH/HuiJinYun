@@ -247,8 +247,10 @@ namespace HuiJinYun.WD
                             Thread.Sleep(10000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).StopOutToAGV(false);
 
-                            Thread.Sleep(12000);
+                            //Thread.Sleep(12000);
+                            while (!Bit.Tst(context.CurrentAGV.State, eHuiJinYunAGVState.Tray)) ;
                             context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, false);
+                            
 
                             context.CurrentAGV.State = eHuiJinYunAGVState.Product;
                         }
@@ -266,7 +268,10 @@ namespace HuiJinYun.WD
                         //add await
 
                         //添加小车接盘检测
-                        context.CurrentAGV.checkTrayState();
+                        Bit.Clr((dynamic)context.CurrentAGV.State, eAGVState.BackupOff);
+                        while (!Bit.Tst((dynamic)context.CurrentAGV.State, eAGVState.BackupOff)) Thread.Sleep(1000);
+                        
+                       // context.CurrentAGV.checkTrayState();
 
                         await context.NextStage();
                         //Peptization Start
