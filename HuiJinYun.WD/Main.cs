@@ -242,7 +242,12 @@ namespace HuiJinYun.WD
                             //Thread.Sleep(1000);
                             //context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, true);
 
-                            Thread.Sleep(60000);
+                            Bit.Clr(context.CurrentAGV.State, eHuiJinYunAGVState.Tray);
+                            while (!Bit.Tst(context.CurrentAGV.State, eHuiJinYunAGVState.Tray)) ;
+                            context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, false);
+
+                            //Thread.Sleep(60000);
+                            Thread.Sleep(1000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).OutToAGV(false);
                             Thread.Sleep(1000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).StopOutToAGV(true);
@@ -250,12 +255,12 @@ namespace HuiJinYun.WD
                             //Thread.Sleep(1000);
                             //while (!Bit.Tst((_line.Devices["liuhuadaoMain"] as VulcanizeDevice).Status, eVulcanizeState.AGVOutLeave)) ;
 
-                            Thread.Sleep(10000);
+                            //Thread.Sleep(10000);
                             (_line.Devices["liuhuadaoVice"] as VulcanizeViceDevice).StopOutToAGV(false);
 
                             //Thread.Sleep(12000);
-                            while (!Bit.Tst(context.CurrentAGV.State, eHuiJinYunAGVState.Tray)) ;
-                            context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, false);
+                            //while (!Bit.Tst(context.CurrentAGV.State, eHuiJinYunAGVState.Tray)) ;
+                            //context.CurrentAGV.Export(eHuiJinYunStagePosition.Initial, 2, false);
                             
 
                             context.CurrentAGV.State = eHuiJinYunAGVState.Product;
@@ -274,8 +279,8 @@ namespace HuiJinYun.WD
                         //add await
 
                         //添加小车接盘检测
-                        Bit.Clr((dynamic)context.CurrentAGV.State, eAGVState.BackupOff);
-                        while (!Bit.Tst((dynamic)context.CurrentAGV.State, eAGVState.BackupOff)) Thread.Sleep(1000);
+                       // Bit.Clr((dynamic)context.CurrentAGV.State, eAGVState.BackupOff);
+                       // while (!Bit.Tst((dynamic)context.CurrentAGV.State, eAGVState.BackupOff)) Thread.Sleep(1000);
                         
                        // context.CurrentAGV.checkTrayState();
 

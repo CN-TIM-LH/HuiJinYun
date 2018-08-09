@@ -54,10 +54,16 @@ namespace HuiJinYun.Domain.Infrastructure.Port
             {
                 if (null != OnReceived)
                 {
-                    int length = _stream.Read(_buffer, 0, _buffer.Length);
-                    byte[] data = new byte[length];
-                    Array.Copy(_buffer, data, length);
-                    OnReceived(this, new PortReceivedEventArgs(data, length));
+                    try
+                    {
+                        int length = _stream.Read(_buffer, 0, _buffer.Length);
+                        byte[] data = new byte[length];
+                        Array.Copy(_buffer, data, length);
+                        OnReceived(this, new PortReceivedEventArgs(data, length));
+                    }
+                    catch
+                    { }
+
                 }
                 else
                 {
