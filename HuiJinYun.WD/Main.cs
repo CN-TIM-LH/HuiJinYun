@@ -216,6 +216,12 @@ namespace HuiJinYun.WD
                         bool stageDone;
                         stageDone = false;
 
+                        //添加小车接盘检测
+                         // while (!Bit.Tst(context.CurrentAGV.State, eAGVState.BackupOff)) Thread.Sleep(1000);
+                        // context.CurrentAGV.checkTrayState();
+
+                        string strs = null;
+
 
                         #region Vulcanization Stage Exit
                         if (_isPass)

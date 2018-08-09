@@ -189,6 +189,7 @@ namespace HuiJinYun.Domain.Entity.Device
                             {
                                 State = default(TState);
                             }
+                           // Logger.LogInfo($"AGV{_AGVNo}:OnReceivedState, code:{res.State}");
                         }
                     }
                     catch
